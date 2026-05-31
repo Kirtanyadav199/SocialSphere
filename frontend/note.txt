@@ -1,0 +1,18 @@
+=> UI
+UI dikhana user ko or navigate krna
+
+
+=>Hook
+   => Manage krna state and Api layer 
+
+
+=>State
+  =>state Manage
+     =>loading
+     =>user
+     =>post list
+     =>error
+
+
+=>Api
+  => backend se communicate
