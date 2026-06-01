@@ -15,6 +15,8 @@ const Navbar = () => {
       <Link to="/profile">Profile</Link>
       <Link to="/requests">Requests</Link>
       <Link to='/search'>Search</Link>
+      <Link to='/followers'>Followers</Link>
+      <Link to='/followings'>Following</Link>
       <p>Welcome <strong>{user?.username}</strong></p>
     </div>
   )

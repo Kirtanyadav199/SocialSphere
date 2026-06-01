@@ -48,3 +48,15 @@ export async function sendFollowRequest(userId){
     return response.data;
 }
 
+export async function getFollowers(){
+    const response = await api.get("/followers")
+
+    return response.data
+}
+
+export async function getFollowing(){
+
+    const response = await api.get('/followings')
+
+    return response.data
+}

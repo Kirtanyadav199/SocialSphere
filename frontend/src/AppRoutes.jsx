@@ -7,6 +7,8 @@ import CreatePost from './features/post/pages/CreatePost'
 import FollowRequests from './features/user/pages/FollowRequests'
 import Profile from './features/user/pages/Profile'
 import SearchUsers from './features/user/pages/SearchUsers'
+import Followers from './features/user/pages/Followers'
+import Following from './features/user/pages/Following'
 
 
 
@@ -21,6 +23,8 @@ const AppRoutes = () => {
         <Route path='/requests' element={<FollowRequests/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/search' element={<SearchUsers/>}/>
+        <Route path='/followers' element={<Followers/>}/>
+        <Route path='/followings' element={<Following/>}/>
     </Routes>
     </BrowserRouter>
   )
