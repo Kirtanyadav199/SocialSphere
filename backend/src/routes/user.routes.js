@@ -20,4 +20,8 @@ userRouter.put("/follow/reject/:id",identifyUser,userController.rejectFollowRequ
 userRouter.delete("/follow/unfollow/:id",identifyUser,userController.unfollowUserController)
 
 
+// get user profile
+userRouter.get("/profile",identifyUser,userController.getProfileController)
+
+
 module.exports = userRouter

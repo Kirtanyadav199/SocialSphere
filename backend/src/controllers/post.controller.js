@@ -3,6 +3,7 @@ const ImageKit = require("@imagekit/nodejs")
 const jwt = require('jsonwebtoken')
 const likeModel = require("../models/like.model")
 const asyncHandler = require("express-async-handler")
+const sharp =  require('sharp')
 
 
 const imagekit = new ImageKit({
@@ -11,8 +12,25 @@ const imagekit = new ImageKit({
 
 const createPostController =  asyncHandler( async(req,res)=>{
 
+
+    if(req.file.size > 25*1024*1024){
+        return res.status(400).json({
+            message:"Image is too large"
+        })
+    }
+
+  const compressedBuffer = await sharp(req.file.buffer)
+  .resize({
+    width:1080,
+    withoutEnlargement:true
+  })
+  .jpeg({
+    quality:80
+  })
+  .toBuffer();
+
    const file = await imagekit.files.upload({
-    file: req.file.buffer.toString("base64"),
+    file: compressedBuffer.toString("base64"),
     fileName: req.file.originalname,
     folder:"cohort-2-insta-clone-posts"
    })

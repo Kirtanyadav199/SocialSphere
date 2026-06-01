@@ -2,6 +2,7 @@ const followModel = require('../models/follow.model')
 const userModel = require('../models/user.model')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
+const postModel = require('../models/post.model')
 
 
 const sendFollowRequestController =   asyncHandler(async (req,res)=>{
@@ -182,10 +183,28 @@ const unfollowUserController = asyncHandler(async(req,res)=>{
 })
 
 
+const getProfileController = asyncHandler(async(req,res)=>{
+    const userId = req.user.id
+
+    const user = await userModel.findById(userId).select("-password")
+
+    const posts = await postModel
+    .find({user:userId})
+    .sort({createdAt:-1})
+
+    res.status(200).json({
+        user,
+        posts,
+        postCount:posts.length,
+    })
+})
+
+
 module.exports={
     sendFollowRequestController,
     getFollowRequestController,
     acceptFollowRequestController,
     rejectFollowRequestController,
-    unfollowUserController
+    unfollowUserController,
+    getProfileController
 }
