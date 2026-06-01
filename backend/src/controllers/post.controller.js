@@ -117,8 +117,14 @@ const likePostController = asyncHandler(async(req,res)=>{
     })
 
     if(isAlreadyLiked){
-        return res.status(409).json({
-            message:"The post is already liked"
+
+        await likeModel.findOneAndDelete({
+            post:postId,
+            user:userId
+        })
+        
+        return res.status(200).json({
+            liked:false
         })
     }
 
@@ -127,8 +133,8 @@ const likePostController = asyncHandler(async(req,res)=>{
         user:userId
     })
 
-    res.status(200).json({
-        message:"Post liked successfully",
+    return res.status(200).json({
+        liked:true,
         like
     })
 
@@ -147,7 +153,12 @@ const getFeedController = asyncHandler(async(req,res)=>{
             post:post._id
         })
 
-        post.isLiked =Boolean(isLiked)
+        const likesCount = await likeModel.countDocuments({
+            post:post._id
+        })
+
+        post.isLiked = Boolean(isLiked)
+        post.likesCount = likesCount
 
         return post
      }))
