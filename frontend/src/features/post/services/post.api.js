@@ -27,3 +27,8 @@ export async function createPost(caption,image){
     return response.data;
 }
 
+export async function toggleLike(postId){
+    const response = await api.post(`/api/posts/like/${postId}`)
+
+    return response.data;
+}
