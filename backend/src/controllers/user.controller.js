@@ -222,6 +222,34 @@ const searchUsersController = asyncHandler(async(req,res)=>{
     })
 })
 
+const getFollowersController = asyncHandler(async (req,res)=>{
+    const currentUserId = req.user.id
+    
+    const followers = await followModel.find({
+        followee:currentUserId,
+        status:'accepted'
+    })
+    .populate("follower", "username profileImage")
+
+    res.status(200).json({
+        followers
+    })
+})
+
+const getFollowingsController = asyncHandler(async (req,res)=>{
+    const currentUserId = req.user.id
+
+    const followings = await followModel.find({
+        follower:currentUserId,
+        status:'accepted'
+    })
+    .populate("followee","username profileImage")
+
+    res.status(200).json({
+        followings
+    })
+})
+
 module.exports={
     sendFollowRequestController,
     getFollowRequestController,
@@ -229,5 +257,7 @@ module.exports={
     rejectFollowRequestController,
     unfollowUserController,
     getProfileController,
-    searchUsersController
+    searchUsersController,
+    getFollowersController,
+    getFollowingsController
 }

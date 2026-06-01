@@ -25,4 +25,17 @@ userRouter.get("/profile",identifyUser,userController.getProfileController)
 
 // search users
 userRouter.get("/search",identifyUser,userController.searchUsersController)
+
+
+// see followers
+userRouter.get("/followers",identifyUser,userController.getFollowersController)
+
+// see followings
+userRouter.get("/followings",identifyUser,userController.getFollowingsController)
+
+
+
 module.exports = userRouter
+
+
+
