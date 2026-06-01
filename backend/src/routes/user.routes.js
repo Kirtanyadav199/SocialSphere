@@ -23,5 +23,6 @@ userRouter.delete("/follow/unfollow/:id",identifyUser,userController.unfollowUse
 // get user profile
 userRouter.get("/profile",identifyUser,userController.getProfileController)
 
-
+// search users
+userRouter.get("/search",identifyUser,userController.searchUsersController)
 module.exports = userRouter

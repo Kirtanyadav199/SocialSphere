@@ -199,6 +199,28 @@ const getProfileController = asyncHandler(async(req,res)=>{
     })
 })
 
+const searchUsersController = asyncHandler(async(req,res)=>{
+
+    const searchTerm = req.query.q;
+
+    if(!searchTerm){
+        return res.status(400).json({
+         message:"Search term is required"
+        })
+    }
+
+    const users = await userModel.find({
+        username:{
+            $regex:`^${searchTerm}`,
+            $options:"i"
+        }
+    }).select("username profileImage")
+
+
+    res.status(200).json({
+        users
+    })
+})
 
 module.exports={
     sendFollowRequestController,
@@ -206,5 +228,6 @@ module.exports={
     acceptFollowRequestController,
     rejectFollowRequestController,
     unfollowUserController,
-    getProfileController
+    getProfileController,
+    searchUsersController
 }
