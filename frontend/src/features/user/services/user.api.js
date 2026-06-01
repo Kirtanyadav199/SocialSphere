@@ -33,3 +33,18 @@ export async function getProfile(){
     return response.data
 
 }
+
+export async function searchUsers(searchTerm){
+
+    const response = await api.get(`/search?q=${searchTerm}`)
+
+    return response.data
+}
+
+export async function sendFollowRequest(userId){
+
+    const response = await api.post(`/follow/${userId}`)
+
+    return response.data;
+}
+

@@ -14,6 +14,7 @@ const Navbar = () => {
       <Link to="/create-post">Create Post</Link>
       <Link to="/profile">Profile</Link>
       <Link to="/requests">Requests</Link>
+      <Link to='/search'>Search</Link>
       <p>Welcome <strong>{user?.username}</strong></p>
     </div>
   )
