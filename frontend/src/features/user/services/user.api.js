@@ -61,9 +61,21 @@ export async function getFollowing(){
     return response.data
 }
 
-export async function updateProfile(bio){
+export async function updateBio(bio){
     const response = await api.patch('/profile',{
         bio
     })
     return response.data;
+}
+
+export async function updateProfileImage(image){
+
+    const formData = new FormData()
+
+    formData.append("Image",image);
+
+    const response = await api.patch('/profile-image',formData)
+
+    return response.data
+
 }
