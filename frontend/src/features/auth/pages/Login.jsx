@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth.js';
 import { Navigate } from 'react-router';
+import Spinner from '../../../Components/ui/Spinner.jsx'
+
 
 
 const Login = () => {
@@ -17,7 +19,7 @@ const Login = () => {
 
   if(loading){
     return(
-      <h1>Loading...</h1>
+      <Spinner/>
     )
   }
 

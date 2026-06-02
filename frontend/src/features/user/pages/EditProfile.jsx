@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { updateBio,updateProfileImage } from '../services/user.api'
 import Layout from '../../../Components/Layout/Layout'
+import { toast } from 'react-toastify'
 
 const EditProfile = () => {
 
@@ -14,7 +15,7 @@ const EditProfile = () => {
         e.preventDefault();
         try{
             const response = await updateBio(bio)
-            alert(response.message)
+            toast.success(response.message)
         }catch(err){
             console.log(err);
             
@@ -25,7 +26,7 @@ const EditProfile = () => {
         setIsUploading(true)
         try{
             const response = await updateProfileImage(image)
-            alert(response.message)
+            toast.success(response.message)
         }catch(err){
             console.log(err);
         }finally{

@@ -42,7 +42,7 @@ const Followers = () => {
     </div>
 
     <Link
-        to={`/user/${follower.username}`}
+        to={`/user/${follower.follower.username}`}
         className="view-btn"
     >
         View Profile

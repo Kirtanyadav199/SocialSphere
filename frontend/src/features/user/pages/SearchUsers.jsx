@@ -3,6 +3,7 @@ import { searchUsers, sendFollowRequest } from '../services/user.api'
 import Layout from '../../../Components/Layout/Layout'
 import { Link } from 'react-router-dom'
 import '../../../style/searchUsers.scss'
+import { toast } from 'react-toastify'
 
 const SearchUsers = () => {
 
@@ -29,7 +30,7 @@ const SearchUsers = () => {
 
             const response = await sendFollowRequest(userId)
 
-            alert(response.message)
+            toast.success(response.message)
 
         } catch (err) {
 

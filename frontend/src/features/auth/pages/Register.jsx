@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import {useAuth} from '../hooks/useAuth'
 import { Navigate } from 'react-router'
+import Spinner from '../../../Components/ui/Spinner'
 
 const Register = () => {
 
@@ -18,7 +19,7 @@ const Register = () => {
 
   if(loading){
     return (
-      <main><h1>Loading...</h1></main>
+      <main><Spinner/></main>
     )
   }
   async function handleSubmit(e){

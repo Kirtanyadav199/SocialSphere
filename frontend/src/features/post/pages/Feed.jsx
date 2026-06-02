@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import Navbar from '../../../Components/Layout/Navbar'
 import Layout from '../../../Components/Layout/Layout'
 import { toggleLike } from '../services/post.api'
+import Spinner from '../../../Components/ui/Spinner'
 
 
 const Feed = () => {
@@ -17,7 +18,7 @@ const Feed = () => {
     },[])
 
     if(loading || !feed){
-        return (<main><h1>Feed is loading....</h1></main>)
+        return (<main><Spinner/></main>)
 
     }
     console.log(feed)

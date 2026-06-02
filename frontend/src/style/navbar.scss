@@ -1,17 +1,13 @@
 .navbar{
     display:flex;
-    justify-content:space-between;
+   
     align-items:center;
-
     padding:1rem 2rem;
-
     background:#111;
     border-bottom:1px solid #262626;
-
     position:sticky;
     top:0;
     z-index:100;
-
     padding: 0.8rem 1.5rem;
 }
 
@@ -19,6 +15,8 @@
     font-size:1.6rem;
     font-weight:700;
     color:white;
+    flex-shrink: 0;
+    flex:1;
 }
 
 .nav-links{
@@ -48,9 +46,11 @@
 .user-info{
     display:flex;
     align-items:center;
-    text-align: right;
+    text-align: center;
     gap:.5rem;
     color:white;
-    min-width:160px;
+    justify-content: flex-end;
+    flex: 1;
+    
 
 }

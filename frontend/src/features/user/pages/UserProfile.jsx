@@ -4,6 +4,8 @@ import { useParams } from 'react-router'
 import { useState,useEffect } from 'react'
 import { getUserProfile,unfollowUser,sendFollowRequest } from '../services/user.api'
 import '../../../style/UserProfile.scss'
+import Spinner from '../../../Components/ui/Spinner'
+import { toast } from 'react-toastify'
 
 const UserProfile = () => {
 
@@ -23,7 +25,7 @@ const UserProfile = () => {
         const response =
             await sendFollowRequest(user._id);
 
-        alert(response.message);
+        toast.success(response.message);
 
         setRelationship({
             status:"pending"
@@ -42,7 +44,7 @@ async function handleUnfollow(){
         const response =
             await unfollowUser(user._id);
 
-        alert(response.message);
+        toast.success(response.message);
 
         setRelationship(null);
 
@@ -85,7 +87,7 @@ async function handleUnfollow(){
         if(loading || !user){
     return (
         <Layout>
-            <h2>Loading...</h2>
+           <Spinner/>
         </Layout>
     )
 }

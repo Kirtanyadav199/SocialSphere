@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { getProfile } from '../services/user.api'
 import Layout from '../../../Components/Layout/Layout'
 import "../../../style/profile.scss"
+import Spinner from '../../../Components/ui/Spinner'
 
 const Profile = () => {
 
@@ -23,7 +24,7 @@ const Profile = () => {
     if(!profile){
         return(
             <Layout>
-                <h1>loading...</h1>
+                <Spinner/>
             </Layout>
         )
     }
