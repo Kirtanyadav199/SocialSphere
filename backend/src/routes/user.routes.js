@@ -33,6 +33,9 @@ userRouter.get("/followers",identifyUser,userController.getFollowersController)
 // see followings
 userRouter.get("/followings",identifyUser,userController.getFollowingsController)
 
+// edit user profile
+userRouter.patch("/profile",identifyUser,userController.updateProfileController)
+
 
 
 module.exports = userRouter

@@ -250,6 +250,27 @@ const getFollowingsController = asyncHandler(async (req,res)=>{
     })
 })
 
+const updateProfileController = asyncHandler(async (req,res)=>{
+    const {bio} = req.body
+    const userId = req.user.id;
+
+    const updatedUser =  await userModel.findByIdAndUpdate(userId,{
+        bio:bio
+    },{new:true}).select("-password");
+
+    if(!updatedUser){
+        return res.status(404).json({
+            message:"User not found"
+        })
+    }
+
+    return res.status(200).json({
+        message:"Profile updated successfully",
+        user:updatedUser
+    })
+})
+
+
 module.exports={
     sendFollowRequestController,
     getFollowRequestController,
