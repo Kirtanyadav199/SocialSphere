@@ -7,6 +7,8 @@ const EditProfile = () => {
 
     const[bio,setBio] = useState('')
     const[image,setImage] = useState(null)
+    const[isUploading,setIsUploading] = useState("")
+    const[preview,setPreview] = useState("")
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -20,12 +22,14 @@ const EditProfile = () => {
     }   
 
     async function handleImageUpload(){
+        setIsUploading(true)
         try{
             const response = await updateProfileImage(image)
             alert(response.message)
         }catch(err){
             console.log(err);
-            
+        }finally{
+            setIsUploading(false)
         }
     }
 
@@ -45,14 +49,21 @@ const EditProfile = () => {
         <input
          type="file"
          accept='image/*'
-         onChange={(e)=>{setImage(e.target.files[0])}}
+         onChange={(e)=>{
+            const file = e.target.files[0]
+            setImage(file)
+            setPreview(URL.createObjectURL(file)) }}
           />
           <button
           type='button'
           onClick={handleImageUpload}
+          disabled={!image || isUploading}
           >
-          Update Profile Image
+         {isUploading?"Uploading":"Update Profile Image"}
           </button>
+          {preview && (
+            <img src={preview} alt="" width='150'/>
+          )}
     </Layout>
   )
 }
