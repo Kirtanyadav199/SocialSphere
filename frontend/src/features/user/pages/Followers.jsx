@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../../Components/Layout/Layout'
 import { getFollowers } from '../services/user.api'
+import '../../../style/followers.scss'
+import { Link } from 'react-router'
 
 const Followers = () => {
    
@@ -25,10 +27,28 @@ const Followers = () => {
         <div className="followers">
             {followers.length==0?<p>No followers Yet</p> :
              followers.map((follower)=>{
-                return <div key={follower._id} className='follower'>
-                    <img src={follower.follower.profileImage} alt="" width='60'/>
-                    <h3>{follower.follower.username}</h3>
-                </div>
+                return <div className="follow-card">
+
+    <img
+        src={follower.follower.profileImage}
+        alt=""
+        className="follow-image"
+    />
+
+    <div className="follow-info">
+
+        <h3>{follower.follower.username}</h3>
+
+    </div>
+
+    <Link
+        to={`/user/${follower.username}`}
+        className="view-btn"
+    >
+        View Profile
+    </Link>
+
+</div>
             })}
         </div>
     </Layout>

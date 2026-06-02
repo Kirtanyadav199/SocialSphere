@@ -79,3 +79,21 @@ export async function updateProfileImage(image){
     return response.data
 
 }
+
+
+export async function getUserProfile(username){
+    const response = await api.get(
+        `/profile/${username}`
+    );
+
+    return response.data;
+}
+
+export async function unfollowUser(userId){
+
+    const response = await api.delete(
+        `/follow/unfollow/${userId}`
+    );
+
+    return response.data;
+}

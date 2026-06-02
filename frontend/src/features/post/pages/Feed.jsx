@@ -44,18 +44,19 @@ const Feed = () => {
     }
 
   return (
+    <Layout>
     <main className='feed-page'>
         <div className="feed">
-           <Layout>
             <div className="posts">
                {feed.map(post=>{
                 return <Post key={post._id} user={post.user} post={post} 
                 onlike={handleLike}/>
                })}
             </div>
-            </Layout>
+            
         </div>
     </main>
+    </Layout>
   )
 }
 

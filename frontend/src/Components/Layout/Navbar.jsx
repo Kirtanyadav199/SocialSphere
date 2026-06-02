@@ -1,25 +1,76 @@
-import React from 'react'
-import {useAuth} from '../../features/auth/hooks/useAuth'
-import '../../style/navbar.scss'
-import {Link} from 'react-router'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../features/auth/hooks/useAuth';
+
+import {
+  FaHome,
+  FaPlusSquare,
+  FaUser,
+  FaSearch,
+  FaUsers
+} from 'react-icons/fa';
+
+import { IoPersonAdd } from "react-icons/io5";
+
+import '../../style/navbar.scss';
 
 const Navbar = () => {
 
-    const {user} = useAuth();
+  const { user } = useAuth();
 
   return (
-    <div className='navbar'>
-      <h1>SocialSphere</h1>
-      <Link to="/">Home</Link>
-      <Link to="/create-post">Create Post</Link>
-      <Link to="/profile">Profile</Link>
-      <Link to="/requests">Requests</Link>
-      <Link to='/search'>Search</Link>
-      <Link to='/followers'>Followers</Link>
-      <Link to='/followings'>Following</Link>
-      <p>Welcome <strong>{user?.username}</strong></p>
-    </div>
-  )
-}
+    <nav className="navbar">
 
-export default Navbar
+      <div className="logo">
+        SocialSphere
+      </div>
+
+      <div className="nav-links">
+
+        <Link to="/">
+          <FaHome />
+          <span>Home</span>
+        </Link>
+
+        <Link to="/create-post">
+          <FaPlusSquare />
+          <span>Create</span>
+        </Link>
+
+        <Link to="/profile">
+          <FaUser />
+          <span>Profile</span>
+        </Link>
+
+        <Link to="/requests">
+          <IoPersonAdd />
+          <span>Requests</span>
+        </Link>
+
+        <Link to="/search">
+          <FaSearch />
+          <span>Search</span>
+        </Link>
+
+        <Link to="/followers">
+          <FaUsers />
+          <span>Followers</span>
+        </Link>
+
+        <Link to="/followings">
+          <FaUsers />
+          <span>Following</span>
+        </Link>
+
+      </div>
+
+      <div className="user-info">
+        <span>Welcome</span>
+        <strong>{user?.username}</strong>
+      </div>
+
+    </nav>
+  );
+};
+
+export default Navbar;

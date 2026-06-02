@@ -1,0 +1,50 @@
+.followers-page{
+    max-width:700px;
+    margin:2rem auto;
+}
+
+.followers-title{
+    color:white;
+    margin-bottom:1rem;
+}
+
+.follow-card{
+    display:flex;
+    align-items:center;
+
+    gap:1rem;
+
+    padding:1rem;
+    margin-bottom:1rem;
+
+    background:#111;
+    border:1px solid #262626;
+    border-radius:12px;
+}
+
+.follow-image{
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.follow-info{
+    flex:1;
+}
+
+.follow-info h3{
+    color:white;
+}
+
+.view-btn{
+    text-decoration:none;
+
+    background:#0095f6;
+    color:white;
+
+    padding:.7rem 1rem;
+
+    border-radius:8px;
+}

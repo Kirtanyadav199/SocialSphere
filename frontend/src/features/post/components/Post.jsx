@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../styles/post.scss'
 
 const Post = ({user,post,onlike}) => {
   return (

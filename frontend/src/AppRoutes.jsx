@@ -10,6 +10,7 @@ import SearchUsers from './features/user/pages/SearchUsers'
 import Followers from './features/user/pages/Followers'
 import Following from './features/user/pages/Following'
 import EditProfile from './features/user/pages/EditProfile'
+import UserProfile from './features/user/pages/UserProfile'
 
 
 
@@ -27,6 +28,7 @@ const AppRoutes = () => {
         <Route path='/followers' element={<Followers/>}/>
         <Route path='/followings' element={<Following/>}/>
         <Route path='/edit-profile' element={<EditProfile/>}/>
+        <Route path="/user/:username" element={<UserProfile/>}/>
     </Routes>
     </BrowserRouter>
   )
