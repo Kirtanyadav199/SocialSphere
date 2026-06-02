@@ -280,5 +280,6 @@ module.exports={
     getProfileController,
     searchUsersController,
     getFollowersController,
-    getFollowingsController
+    getFollowingsController,
+    updateProfileController
 }

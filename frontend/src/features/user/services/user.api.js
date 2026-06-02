@@ -60,3 +60,10 @@ export async function getFollowing(){
 
     return response.data
 }
+
+export async function updateProfile(bio){
+    const response = await api.patch('/profile',{
+        bio
+    })
+    return response.data;
+}
