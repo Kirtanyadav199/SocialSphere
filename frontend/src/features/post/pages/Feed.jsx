@@ -21,7 +21,7 @@ const Feed = () => {
         return (<main><Spinner/></main>)
 
     }
-    console.log(feed)
+   
 
     async function handleLike(postId){
         try{

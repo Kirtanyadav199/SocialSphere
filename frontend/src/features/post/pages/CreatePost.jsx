@@ -74,21 +74,31 @@ const CreatePost = () => {
 
         <form onSubmit={handleSubmit}>
 
-            <input
-                type="file"
-                accept="image/*"
-                onChange={(e)=>{
-             const file = e.target.files[0];
+            <label className="file-upload">
 
-    setImage(file);
+    <input
+        type="file"
+        accept="image/*"
+        onChange={(e)=>{
+            const file = e.target.files[0];
 
-    if(file){
-        setPreview(
-            URL.createObjectURL(file)
-        );
+            setImage(file);
+
+            if(file){
+                setPreview(
+                    URL.createObjectURL(file)
+                );
+            }
+        }}
+    />
+
+    {
+        image
+            ? image.name
+            : "📷 Choose an image"
     }
-}}
-            />
+
+</label>
 
             <textarea
                 placeholder="Write a caption..."

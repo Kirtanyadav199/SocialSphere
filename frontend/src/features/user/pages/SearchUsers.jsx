@@ -12,6 +12,11 @@ const SearchUsers = () => {
 
     async function handleSearch(searchTerm) {
 
+        if(!searchTerm.trim()){
+            setUsers([])
+            return;
+        }
+
         try {
 
             const response = await searchUsers(searchTerm)
@@ -34,7 +39,7 @@ const SearchUsers = () => {
 
         } catch (err) {
 
-            console.log(err)
+            toast.error(err.response.data.message)
 
         }
     }
@@ -77,7 +82,7 @@ const SearchUsers = () => {
                                         className="user-image"
                                     />
 
-                                    <div className="user-info">
+                                    <div className="userInfo">
 
                                         <Link
                                             to={`/user/${user.username}`}

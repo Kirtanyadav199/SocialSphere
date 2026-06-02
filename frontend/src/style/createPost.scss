@@ -94,3 +94,34 @@
     opacity:.6;
     cursor:not-allowed;
 }
+
+.file-upload{
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:1rem;
+
+    background:#1a1a1a;
+
+    border:2px dashed #444;
+
+    border-radius:12px;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.file-upload:hover{
+    border-color:#0095f6;
+    background:#202020;
+}
+
+.file-upload input{
+    display:none;
+}

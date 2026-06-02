@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import {login,register,getMe} from './services/auth.api'
+import {toast} from 'react-toastify'
 
 export const AuthContext = createContext() 
 
@@ -28,7 +29,7 @@ export const AuthProvider = ({children}) =>{
             const response = await login(username,password)
             setUser(response.user)
         }catch(err){
-            console.log(err);  
+            toast.error(err.response.data.message);  
         }
         finally{
             setLoading(false)

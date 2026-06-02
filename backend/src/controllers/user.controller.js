@@ -332,18 +332,22 @@ const getUsersProfileController = asyncHandler(async(req,res)=>{
     const user = await userModel.findOne({
         username:userName
     }).select("-password")
-
+    
     if(!user){
         return res.status(404).json({
             message:"user not found"
         })
     }
+    const relationship = await followModel.findOne({
+    follower: currentUserId,
+    followee: user._id
+     })
     const posts = await Promise.all((await postModel.find({
         user:user._id
     }).lean()).map(async(post)=>{
 
         const isLiked = await likeModel.findOne({
-            user:user._id,
+            user:currentUserId,
             post:post._id
         })
         const likesCount = await likeModel.countDocuments({
@@ -356,9 +360,24 @@ const getUsersProfileController = asyncHandler(async(req,res)=>{
         return post
     }))
 
+    const followersCount =
+    await followModel.countDocuments({
+        followee: user._id,
+        status: "accepted"
+    })
+
+    const followingCount =
+    await followModel.countDocuments({
+        follower: user._id,
+        status: "accepted"
+    })
+
     return res.status(200).json({
         user,
-        posts
+        posts,
+        relationship,
+        followersCount,
+        followingCount
     })
 })
 
