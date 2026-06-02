@@ -23,7 +23,7 @@ userRouter.put("/follow/reject/:id",identifyUser,userController.rejectFollowRequ
 userRouter.delete("/follow/unfollow/:id",identifyUser,userController.unfollowUserController)
 
 
-// get user profile
+// get logined user profile
 userRouter.get("/profile",identifyUser,userController.getProfileController)
 
 // search users
@@ -42,7 +42,8 @@ userRouter.patch("/profile",identifyUser,userController.updateBioController)
 // update user profile(profile Photo)
 userRouter.patch("/profile-image",upload.single("Image"),identifyUser,userController.updateProfileImageController)
 
-
+// get other users profile
+userRouter.get("/profile/:username",identifyUser,userController.getUsersProfileController)
 module.exports = userRouter
 
 

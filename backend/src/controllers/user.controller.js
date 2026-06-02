@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler')
 const postModel = require('../models/post.model')
 const sharp = require('sharp')
 const ImageKit = require('@imagekit/nodejs')
+const likeModel = require('../models/like.model')
 
     const imagekit = new ImageKit({
         privateKey:process.env.IMAGEKIT_PRIAVTE_KEY
@@ -324,7 +325,42 @@ const updateProfileImageController = asyncHandler(async (req,res)=>{
     })
 })
 
+const getUsersProfileController = asyncHandler(async(req,res)=>{
+    const currentUserId  = req.user.id
+    const userName = req.params.username
 
+    const user = await userModel.findOne({
+        username:userName
+    }).select("-password")
+
+    if(!user){
+        return res.status(404).json({
+            message:"user not found"
+        })
+    }
+    const posts = await Promise.all((await postModel.find({
+        user:user._id
+    }).lean()).map(async(post)=>{
+
+        const isLiked = await likeModel.findOne({
+            user:user._id,
+            post:post._id
+        })
+        const likesCount = await likeModel.countDocuments({
+            post:post._id
+        })
+
+        post.isLiked = Boolean(isLiked)
+        post.likesCount = likesCount
+
+        return post
+    }))
+
+    return res.status(200).json({
+        user,
+        posts
+    })
+})
 
 module.exports={
     sendFollowRequestController,
@@ -337,5 +373,6 @@ module.exports={
     getFollowersController,
     getFollowingsController,
     updateBioController,
-    updateProfileImageController
+    updateProfileImageController,
+    getUsersProfileController
 }
