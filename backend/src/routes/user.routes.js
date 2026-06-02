@@ -4,6 +4,9 @@ const identifyUser = require("../middlewares/auth.middleware")
 const userRouter = express.Router()
 const userController = require("../controllers/user.controller")
 
+const multer = require('multer')
+const upload = multer({storage:multer.memoryStorage()})
+
 // send Follow req
 userRouter.post("/follow/:userId",identifyUser,userController.sendFollowRequestController)
 
@@ -33,9 +36,11 @@ userRouter.get("/followers",identifyUser,userController.getFollowersController)
 // see followings
 userRouter.get("/followings",identifyUser,userController.getFollowingsController)
 
-// edit user profile
-userRouter.patch("/profile",identifyUser,userController.updateProfileController)
+// edit user profile(bio)
+userRouter.patch("/profile",identifyUser,userController.updateBioController)
 
+// update user profile(profile Photo)
+userRouter.patch("/profile-image",upload.single("Image"),identifyUser,userController.updateProfileImageController)
 
 
 module.exports = userRouter

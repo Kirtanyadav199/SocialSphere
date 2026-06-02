@@ -3,6 +3,12 @@ const userModel = require('../models/user.model')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 const postModel = require('../models/post.model')
+const sharp = require('sharp')
+const ImageKit = require('@imagekit/nodejs')
+
+    const imagekit = new ImageKit({
+        privateKey:process.env.IMAGEKIT_PRIAVTE_KEY
+    })
 
 
 const sendFollowRequestController =   asyncHandler(async (req,res)=>{
@@ -250,7 +256,7 @@ const getFollowingsController = asyncHandler(async (req,res)=>{
     })
 })
 
-const updateProfileController = asyncHandler(async (req,res)=>{
+const updateBioController = asyncHandler(async (req,res)=>{
     const {bio} = req.body
     const userId = req.user.id;
 
@@ -270,6 +276,55 @@ const updateProfileController = asyncHandler(async (req,res)=>{
     })
 })
 
+const updateProfileImageController = asyncHandler(async (req,res)=>{
+
+    const userId = req.user.id;
+
+    if(!req.file){
+        return res.status(400).json({
+            message:"Image is required"
+        })
+    }
+
+    if(req.file.size > 25*1024*1024){
+        return res.status(400).json({
+            message:"Image is too large"
+        })
+    }
+    const compressedBuffer = await sharp(req.file.buffer)
+    .resize({
+        width:1080,
+        withoutEnlargement:true
+    })
+    .jpeg({
+        quality:80
+    })
+    .toBuffer()
+
+    const file = await imagekit.files.upload({
+        file:compressedBuffer.toString('base64'),
+        fileName:req.file.originalname,
+        folder:"cohort-2-insta-clone-profileImages"
+    })
+     
+    const user = await userModel.findById(userId).select('-password')
+
+    if(!user){
+        return res.status(404).json({
+           message:"User not found"
+        })
+    }
+    user.profileImage = file.url
+
+    await user.save()
+
+    return res.status(200).json({
+        message:"Profile picture update successfully",
+        user
+    })
+})
+
+
 
 module.exports={
     sendFollowRequestController,
@@ -281,5 +336,6 @@ module.exports={
     searchUsersController,
     getFollowersController,
     getFollowingsController,
-    updateProfileController
+    updateBioController,
+    updateProfileImageController
 }
