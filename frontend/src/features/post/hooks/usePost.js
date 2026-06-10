@@ -12,7 +12,7 @@ export const usePost = ()=>{
         setLoading(true)
         const data = await getFeed()
         setFeed(data.posts)
-        setLoading(false)
+        setLoading(false) 
     }
 
     return {loading,feed,setFeed,post,handleGetFeed}

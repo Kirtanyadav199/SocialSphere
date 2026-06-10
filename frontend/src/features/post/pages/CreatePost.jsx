@@ -14,122 +14,122 @@ const CreatePost = () => {
 
     const navigate = useNavigate();
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    if(!image){
-        toast.warn("Please select an image");
-        return;
+        if (!image) {
+            toast.warn("Please select an image");
+            return;
+        }
+
+        setUploading(true);
+
+        try {
+
+            await createPost(
+                caption,
+                image
+            );
+
+            toast.success(
+                "Post created successfully"
+            );
+
+            navigate("/");
+
+        } catch (err) {
+
+            console.log(err);
+
+            toast.error(
+                "Failed to create post"
+            );
+
+        } finally {
+
+            setUploading(false);
+
+        }
     }
-
-    setUploading(true);
-
-    try{
-
-        await createPost(
-            caption,
-            image
-        );
-
-        toast.success(
-            "Post created successfully"
-        );
-
-        navigate("/");
-
-    }catch(err){
-
-        console.log(err);
-
-        toast.error(
-            "Failed to create post"
-        );
-
-    }finally{
-
-        setUploading(false);
-
-    }
-}
 
     return (
 
-<Layout>
+        <Layout>
 
-<div className="create-post-page">
+            <div className="create-post-page">
 
-    <div className="create-post-card">
+                <div className="create-post-card">
 
-        <h1>Create Post</h1>
+                    <h1>Create Post</h1>
 
-        {
-            preview &&
-            <img
-                src={preview}
-                alt=""
-                className="preview-image"
-            />
-        }
+                    {
+                        preview &&
+                        <img
+                            src={preview}
+                            alt=""
+                            className="preview-image"
+                        />
+                    }
 
-        <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
 
-            <label className="file-upload">
+                        <label className="file-upload">
 
-    <input
-        type="file"
-        accept="image/*"
-        onChange={(e)=>{
-            const file = e.target.files[0];
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
 
-            setImage(file);
+                                    setImage(file);
 
-            if(file){
-                setPreview(
-                    URL.createObjectURL(file)
-                );
-            }
-        }}
-    />
+                                    if (file) {
+                                        setPreview(
+                                            URL.createObjectURL(file)
+                                        );
+                                    }
+                                }}
+                            />
 
-    {
-        image
-            ? image.name
-            : "📷 Choose an image"
-    }
+                            {
+                                image
+                                    ? image.name
+                                    : "📷 Choose an image"
+                            }
 
-</label>
+                        </label>
 
-            <textarea
-                placeholder="Write a caption..."
-                value={caption}
-                onChange={(e)=>{
-                    setCaption(
-                        e.target.value
-                    );
-                }}
-            />
+                        <textarea
+                            placeholder="Write a caption..."
+                            value={caption}
+                            onChange={(e) => {
+                                setCaption(
+                                    e.target.value
+                                );
+                            }}
+                        />
 
-            <button
-                type="submit"
-                disabled={uploading}
-            >
-                {
-                    uploading
-                    ? "Creating..."
-                    : "Create Post"
-                }
-            </button>
+                        <button
+                            type="submit"
+                            disabled={uploading}
+                        >
+                            {
+                                uploading
+                                    ? "Creating..."
+                                    : "Create Post"
+                            }
+                        </button>
 
-        </form>
+                    </form>
 
-    </div>
+                </div>
 
-</div>
+            </div>
 
-</Layout>
+        </Layout>
 
-)
+    )
 };
 
 export default CreatePost;
